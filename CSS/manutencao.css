@@ -1,0 +1,27 @@
+header{
+    background-color: #19212C;
+    padding: 16px;
+}
+a.nav-link{
+    color: white;
+    text-decoration: none;
+    justify-content: flex-start;
+    align-items: center;
+    margin-top: auto;
+    margin-bottom: auto;
+    cursor: pointer;
+    
+}
+a.nav-link-end{
+    color: red !important;
+    display: flex !important;
+    text-decoration: none !important;
+    justify-content: flex-end !important;
+    align-items: center !important;
+    margin-left: auto !important;
+    border: 2px solid white !important;
+    border-radius: 8px !important;
+    padding: 8px 16px !important;
+    margin-top: auto !important;
+    margin-bottom: auto !important;
+}

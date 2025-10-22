@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adicionar Item - JTS</title>
+    <script src="adc.js"></script>
+    <link rel="stylesheet" href="CSS/adc_item.css">
+</head>
+<body>
+
+    <header class="header">
+        <div class="header-left">
+            <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/logojts-PzwZ4KGoBwJ9Duqk3ZiHD3TdhFFB6y.png" alt="JTS Logo" class="logo">
+            <nav class="main-nav">
+                <a class="nav-link active" href="#">Almoxarifado</a>
+                <a class="nav-link" href="#">Manutenção</a>
+                <a class="nav-link" href="#">Gerência</a>
+            </nav>
+        </div>
+        <button class="btn-sair">Sair</button>
+    </header>
+
+    <main class="form-container">
+        <h1 class="form-title">Adicionar novo item ao estoque</h1>
+
+        <form class="add-item-form">
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="codigo">Código</label>
+                    <input type="text" id="codigo" placeholder="#0001">
+                </div>
+                <div class="form-group">
+                    <label for="quantidade">Quantidade</label>
+                    <input type="number" id="quantidade" value="0" min="0">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group full-width">
+                    <label for="endereco">Endereço</label>
+                    <input type="text" id="endereco" placeholder="#0001">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group full-width">
+                    <label for="tipo">Tipo</label>
+                    <select id="tipo">
+                        <option value="peca">Peça</option>
+                        <option value="filtro">Filtro</option>
+                        <option value="cabo">Cabo</option>
+                        <option value="oleo">Óleo</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group full-width">
+                    <label for="marca">Marca</label>
+                    <input type="text" id="marca">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group full-width">
+                    <label for="maquina">Máquina</label>
+                    <input type="text" id="maquina">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group full-width">
+                    <label for="descricao">Descrição</label>
+                    <textarea id="descricao" rows="4"></textarea>
+                </div>
+            </div>
+
+            <div class="form-actions">
+            <a href="estoque.html" class="btn-cancel">Cancelar</a>
+
+            <button type="submit" class="btn-submit">Adicionar Item</button>
+            </div>
+        </form>
+    </main>
+
+</body>
+</html>

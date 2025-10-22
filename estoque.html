@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estoque - JTS</title>
+    <link rel="stylesheet" href="CSS/estoque.css">
+    <link rel="stylesheet" href="estoque.js">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+
+    <header class="header">
+        <div class="header-left">
+            <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/logojts-PzwZ4KGoBwJ9Duqk3ZiHD3TdhFFB6y.png" alt="JTS Logo" class="logo">
+            <nav class="main-nav">
+                <a class="nav-link active" href="#">Almoxarifado</a>
+                <a class="nav-link" href="#">Manutenção</a>
+                <a class="nav-link" href="#">Gerência</a>
+            </nav>
+        </div>
+        <button class="btn-sair">Sair</button>
+    </header>
+
+    <main class="main-container">
+
+    <aside class="sidebar">
+        <h2>Filtros</h2>
+        <div class="filter-options">
+            <label>
+                <input type="checkbox" name="filter-type" value="peca" checked> Peças
+            </label>
+            <label>
+                <input type="checkbox" name="filter-type" value="filtro" checked> Filtros
+            </label>
+            <label>
+                <input type="checkbox" name="filter-type" value="cabo" checked> Cabos
+            </label>
+            <label>
+                <input type="checkbox" name="filter-type" value="oleo" checked> Óleo
+            </label>
+            <label>
+                <input type="checkbox" name="filter-type" value="all"> Mostrar Tudo
+            </label>
+        </div>
+    </aside>
+
+        <section class="stock-content">
+            <div class="stock-header">
+                <h1>Estoque</h1>
+                <div class="actions">
+                    <div class="search-bar">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <input type="text" placeholder="Pesquisa">
+                        <button class="btn-buscar">Buscar</button>
+                    </div>
+                    <a href="adc.html" class="btn-adicionar"><i class="fa-solid fa-plus"></i> Adicionar Item</a>
+                </div>
+            </div>
+
+            <div class="stock-table-header">
+                <span>CÓDIGO</span>
+                <span>DESCRIÇÃO</span>
+                <span>TIPO</span>
+                <span>QUANTIDADE</span>
+            </div>
+
+                <div class="stock-list">
+        </section>
+    </main>
+    <script src="estoque.js"></script>
+</body>
+</html>

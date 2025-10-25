@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciar Contas</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+    <style>
+      body {
+        background-color: #c7cbcd;
+        font-family: Arial, sans-serif;
+      }
+      .container-form {
+        max-width: 500px;
+        margin: 50px auto 40px auto;
+        background-color: #c7cbcd;
+        border-radius: 10px;
+      }
+      .form-control, .form-select {
+        border-radius: 20px;
+        border: 1px solid #000;
+      }
+      .btn-credenciar {
+        background-color: #a59b9b;
+        border: none;
+        border-radius: 20px;
+        color: #000;
+        width: 200px;
+      }
+      .btn-credenciar:hover {
+        background-color: #908787;
+      }
+      .card-contas {
+        background-color: #fff;
+        border-radius: 20px;
+        border: 2px solid #000; 
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        padding: 20px;
+        max-width: 800px;
+        margin: 0 auto;
+      }
+      .conta-item {
+        background-color: #9b9595;
+        border-radius: 20px;
+        padding: 8px 15px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 10px;
+        color: #000;
+        font-size: 14px;
+      }
+      .conta-item span {
+        font-weight: 600;
+        margin-right: 10px;
+      }
+      .conta-num {
+        background-color: #3a3a3a;
+        color: #fff;
+        border-radius: 50%;
+        width: 30px;
+        height: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 10px;
+      }
+      .delete-icon:hover {
+        color: darkred !important;
+        transform: scale(1.1);
+      }
+      .header {
+        background-color: #2c3e50;
+        padding: 16px 32px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+      }
+      .header-left {
+        display: flex;
+        align-items: center;
+        gap: 24px;
+      }
+      .header-label {
+        color: #ffffff;
+        font-size: 12px;
+        font-weight: 400;
+        opacity: 0.8;
+      }
+      .logo-container {
+        display: flex;
+        align-items: center;
+      }
+      .logo {
+        height: 50px;
+        width: auto;
+        object-fit: contain;
+      }
+      .btn-navegar {
+        background-color: transparent;
+        color: white;
+        border: none;
+      }
+      .btn-navegar:hover {
+        color: rgb(14, 117, 117);
+      }
+      .btn-sair {
+        background-color: transparent;
+        color: #ffffff;
+        border: 1px solid #ffffff;
+        padding: 8px 24px;
+        font-size: 14px;
+        font-weight: 500;
+        cursor: pointer;
+        border-radius: 4px;
+        transition: all 0.3s ease;
+      }
+      .btn-sair:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+        transform: translateY(-1px);
+      }
+    </style>
+  </head>
+  <body>
+    <header class="header">
+      <div class="header-left">
+        <div class="logo-container">
+          <a href="dashboard.html"><img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/logojts-PzwZ4KGoBwJ9Duqk3ZiHD3TdhFFB6y.png" alt="UTSO Logo" class="logo"></a>
+        </div>
+        <a href="estoque.html"><button class="btn-navegar">Almoxarifado</button></a>
+        <a href=""><button class="btn-navegar">Manutenção</button></a>
+        <a href="gerenciar.html"><button class="btn-navegar">Gerenciar</button></a>
+      </div>
+      <a href="Login.html">
+        <button class="btn-sair">Sair</button>
+      </a>
+    </header>
+    
+    <div class="container-form">
+      <h5 class="fw-bold mb-4 text-center">Credenciar Nova Conta</h5>
+      <form>
+        <div class="mb-3">
+          <label class="form-label fw-bold">Nome:</label>
+          <input type="text" class="form-control" placeholder="Digite o nome de acesso">
+        </div>
+        <div class="mb-3">
+          <label class="form-label fw-bold">Senha de Acesso</label>
+          <input type="password" class="form-control" placeholder="Digite a senha de acesso">
+        </div>
+        <div class="mb-4">
+          <label class="form-label fw-bold">Tipo de Permissão</label>
+          <select class="form-select">
+            <option selected>Admin</option>
+            <option>Colaborador</option>
+          </select>
+        </div>
+        <div class="text-center">
+          <button type="button" class="btn btn-credenciar">Credenciar</button>
+        </div>
+      </form>
+    </div>
+
+    <div class="card-contas">
+      <h6 class="fw-bold mb-3">CONTAS CREDENCIADAS</h6>
+      <!-- As contas serão renderizadas aqui -->
+    </div>
+
+    <script>
+      const nomeInput = document.querySelector('input[placeholder="Digite o nome de acesso"]');
+      const senhaInput = document.querySelector('input[placeholder="Digite a senha de acesso"]');
+      const tipoSelect = document.querySelector('.form-select');
+      const btnCredenciar = document.querySelector('.btn-credenciar');
+      const contasContainer = document.querySelector('.card-contas');
+
+      function carregarContas() {
+        const raw = localStorage.getItem('contasCredenciadas');
+        return raw ? JSON.parse(raw) : [];
+      }
+
+      function salvarContas(list) {
+        localStorage.setItem('contasCredenciadas', JSON.stringify(list));
+      }
+
+      function renderizarContas() {
+        const contas = carregarContas();
+        contasContainer.querySelectorAll('.conta-item').forEach(el => el.remove());
+
+        contas.forEach((conta, index) => {
+          const item = document.createElement('div');
+          item.className = 'conta-item';
+          item.innerHTML = `
+            <div class="d-flex align-items-center">
+              <div class="conta-num">${String(index + 1).padStart(2, '0')}</div>
+              <div><small><strong>${conta.nome}</strong> (${conta.tipo})</small></div>
+            </div>
+            <div class="d-flex align-items-center">
+              <small class="me-3">Última vez online em: ${conta.ultima || '—'}</small>
+              <i class="bi bi-trash3-fill delete-icon" style="color: red; cursor:pointer;"></i>
+            </div>`;
+          
+          item.querySelector('.delete-icon').addEventListener('click', () => {
+            if (confirm(`Remover a conta \"${conta.nome}\"?`)) {
+              const lista = carregarContas();
+              lista.splice(index, 1);
+              salvarContas(lista);
+              renderizarContas();
+            }
+          });
+
+          contasContainer.appendChild(item);
+        });
+      }
+
+      btnCredenciar.addEventListener('click', () => {
+        const nome = nomeInput.value.trim();
+        const senha = senhaInput.value;
+        const tipo = tipoSelect.value;
+
+        if (!nome) return alert('Informe o nome de acesso.');
+        if (!senha || senha.length < 4) return alert('Senha deve ter no mínimo 4 caracteres.');
+
+        const contas = carregarContas();
+        if (contas.some(c => c.nome.toLowerCase() === nome.toLowerCase())) {
+          return alert('Já existe uma conta com esse nome.');
+        }
+
+        const nova = {
+          nome,
+          senha,
+          tipo,
+          criadaEm: new Date().toLocaleString('pt-BR'),
+          ultima: '-'
+        };
+
+        contas.push(nova);
+        salvarContas(contas);
+        renderizarContas();
+
+        nomeInput.value = '';
+        senhaInput.value = '';
+        tipoSelect.value = 'Admin';
+      });
+
+      document.addEventListener('DOMContentLoaded', renderizarContas);
+    </script>
+  </body>
+</html>

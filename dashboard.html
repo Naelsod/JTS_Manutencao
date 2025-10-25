@@ -4,53 +4,39 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>UTSO - Dashboard</title>
-    <link rel="stylesheet" href="dashbord.css">
+    <link rel="stylesheet" href="css/dashboard.css">
 </head>
 <body>
     <div class="container-fluid p-0">
 
-        <header>
-            <nav class="navbar navbar-expand-lg navbar-dark bg-dark p-3">
-                
-                <a class="navbar-brand me-5" href="dashboard.html">
-                    <img src="img/JTS_Logo.png" alt="JTS_Logo" width="130">
-                </a>
-                
-                <div class="d-flex w-100"> 
-                    <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a class="nav-link" href="almoxarifado.html">Almoxarifado</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="manutencao.html">Manutenção</a> 
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Gerência</a>
-                        </li>
-                    </ul>
-
-                    <a class="btn btn-sair ms-auto" href="#">Sair</a>
+        <header class="header">
+            <div class="header-left">
+                <div class="logo-container">
+                <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/logojts-PzwZ4KGoBwJ9Duqk3ZiHD3TdhFFB6y.png" alt="UTSO Logo" class="logo">
                 </div>
-            </nav>
+            </div>
+        <a href="Login.html">
+            <button class="btn-sair">Sair</button>
+        </a>
         </header>
     <div class="main-container">
         <aside class="sidebar">
             <nav class="sidebar-section">
                 <h3 class="sidebar-title">Gerencia</h3>
                 <ul class="sidebar-menu">
-                    <li><a href="#" class="menu-item active">Dashboard</a></li>
+                    <li><a href="dashboard.html" class="menu-item active">Dashboard</a></li>
                     <li><a href="#" class="menu-item">Maquinário</a></li>
                     <li><a href="#" class="menu-item">Histórico de Manutenção</a></li>
-                    <li><a href="#" class="menu-item">Almoxarifado</a></li>
+                    <li><a href="estoque.html" class="menu-item">Almoxarifado</a></li>
                 </ul>
             </nav>
 
             <nav class="sidebar-section">
                 <h3 class="sidebar-title">Cadastro</h3>
                 <ul class="sidebar-menu">
-                    <li><a href="#" class="menu-item">Cadastrar máquina</a></li>
-                    <li><a href="#" class="menu-item">Cadastrar produto</a></li>
-                    <li><a href="#" class="menu-item">Cadastrar credencial</a></li>
+                    <li><a href="add_maquina.html" class="menu-item">Cadastrar máquina</a></li>
+                    <li><a href="adc.html" class="menu-item">Cadastrar produto</a></li>
+                    <li><a href="gerenciar.html" class="menu-item">Cadastrar credencial</a></li>
                 </ul>
             </nav>
         </aside>

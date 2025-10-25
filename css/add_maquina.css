@@ -1,0 +1,105 @@
+.bg-dark {
+    background-color: #19212C !important;
+}
+.bg-light-gray {
+    background-color: #f5f5f5 !important; 
+    border-top: 1px solid #ddd;
+}
+.bg-light-gray h1 {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    margin: 0;
+}
+.navbar-nav .nav-link.active {
+    color: white !important;
+    border-bottom: 3px solid #007bff;
+    padding-bottom: 5px;
+}
+.btn-sair {
+    background-color: #583331; 
+    color: white; 
+    border: none;
+    border-radius: 4px;
+    padding: 6px 16px; 
+    font-size: 16px;
+    text-decoration: none;
+    cursor: pointer;
+}
+.btn-sair:hover {
+    background-color: #6a3e3b; 
+    color: white;
+}
+
+
+body.bg-light-gray {
+    background-color: #F8F9FA;
+}
+.form-card-container {
+    background-color: #E3E7E8;
+    border-radius: 8px;
+    border: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+}
+.custom-label {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #6c757d;
+    margin-bottom: 0.35rem;
+}
+.custom-input {
+    background-color: #FFFFFF;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    padding: 0.75rem 1rem;
+    line-height: 1.5;
+    height: auto;
+    box-shadow: none; 
+}
+.custom-input:focus {
+    border-color: #A6B1B8;
+    box-shadow: 0 0 0 0.1rem rgba(0, 0, 0, 0.1);
+    outline: 0;
+}
+.code-input {
+    font-weight: bold;
+    color: #343a40;
+}
+.code-input::placeholder {
+    color: #adb5bd;
+}
+.custom-file-input-wrapper .file-input-label {
+    display: block;
+    cursor: pointer;
+    margin-bottom: 0;
+    color: #6c757d;
+}
+.add-btn {
+    background-color: #1A1A1A;
+    border-color: #1A1A1A;
+    color: #FFFFFF;
+    font-weight: 600;
+    padding: 0.75rem 2rem;
+    border-radius: 6px;
+    transition: background-color 0.2s;
+}
+.add-btn:hover {
+    background-color: #343a40;
+    border-color: #343a40;
+}
+.cancel-btn {
+    font-weight: 600;
+}
+.btn-sair {
+    color: #adb5bd;
+    border: 1px solid #adb5bd;
+    padding: 0.375rem 1rem;
+    border-radius: 4px;
+    text-decoration: none;
+    transition: background-color 0.2s, color 0.2s;
+}
+.btn-sair:hover {
+    color: #FFFFFF;
+    background-color: #495057;
+    border-color: #495057;
+}

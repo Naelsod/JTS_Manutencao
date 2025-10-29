@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
+
 * {
   margin: 0;
   padding: 0;
@@ -14,8 +16,7 @@ body {
 }
 
 .header {
-  background-color: #2c3e50;
-  
+  background-color: #19212c;
   padding: 16px 32px;
   display: flex;
   justify-content: space-between;
@@ -83,11 +84,13 @@ body {
 }
 
 .sidebar-title {
-  font-size: 16px;
+  font-size: 20px;
   font-weight: 700;
   color: #000000;
   padding: 0 20px;
   margin-bottom: 12px;
+  /* Fixed font-family to use Inter instead of missing custom font */
+  font-family: "Inter", sans-serif;
 }
 
 .sidebar-menu {
@@ -100,8 +103,11 @@ body {
   color: #000000;
   text-decoration: none;
   font-size: 14px;
-  font-weight: 400;
   transition: background-color 0.2s ease;
+  font-family: 'Konkhmer Sleokchher';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Konkhmer Sleokchher'), url('https://fonts.cdnfonts.com/s/107282/KonkhmerSleokchher-Regular.woff') format('woff');
 }
 
 .menu-item:hover {
@@ -125,7 +131,6 @@ body {
   margin-bottom: 32px;
   padding: 32px;
   background-color: #ffffff;
-  
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
@@ -147,19 +152,19 @@ body {
 }
 
 .stats-number.disponivel {
-  color: #4caf50;
+  color: #2c9133;
 }
 
 .stats-number.manutencao {
-  color: #2196f3;
+  color: #42638e;
 }
 
 .stats-number.indisponivel {
-  color: #f44336;
+  color: #b13030;
 }
 
 .stats-number.total {
-  color: #333333;
+  color: #19212c;
 }
 
 .stats-label {
@@ -207,6 +212,12 @@ body {
   align-items: center;
   padding: 12px 0;
   border-bottom: 1px solid #e0e0e0;
+  transition: background-color 0.2s ease;
+  cursor: pointer;
+}
+
+.atividade-item:hover {
+  background-color: rgba(0, 0, 0, 0.02);
 }
 
 .atividade-item:last-child {
@@ -236,19 +247,19 @@ body {
 }
 
 .atividade-status.disponivel {
-  color: #4caf50;
+  color: #2c9133;
 }
 
 .atividade-status.manutencao {
-  color: #2196f3;
+  color: #42638e;
 }
 
 .atividade-status.indisponivel {
-  color: #f44336;
+  color: #b13030;
 }
 
 .atividade-status.excluida {
-  color: #757575;
+  color: #000000;
 }
 
 .atividade-tempo {
@@ -269,11 +280,13 @@ body {
   justify-content: center;
   gap: 32px;
   flex: 1;
+  padding: 20px;
 }
 
 .pie-chart {
   width: 240px;
   height: 240px;
+  overflow: visible;
 }
 
 .grafico-legenda {
@@ -298,7 +311,7 @@ body {
 }
 
 .legenda-cor.disponivel {
-  background-color: #4caf50;
+  background-color: #2c9133;
 }
 
 .legenda-cor.manutencao {
@@ -306,7 +319,7 @@ body {
 }
 
 .legenda-cor.indisponivel {
-  background-color: #f44336;
+  background-color: #b13030;
 }
 
 .legenda-texto {
@@ -335,6 +348,14 @@ body {
   display: flex;
   flex-direction: column;
   gap: 4px;
+  transition: background-color 0.2s ease;
+  padding: 8px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.contato-item:hover {
+  background-color: rgba(0, 0, 0, 0.02);
 }
 
 .contato-nome {
@@ -347,6 +368,46 @@ body {
   font-size: 14px;
   color: #666666;
   font-weight: 400;
+}
+
+.notification {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  padding: 16px 24px;
+  border-radius: 8px;
+  background-color: #ffffff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 1000;
+  animation: slideIn 0.3s ease;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.notification-success {
+  border-left: 4px solid #2c9133;
+  color: #2c9133;
+}
+
+.notification-info {
+  border-left: 4px solid #42638e;
+  color: #42638e;
+}
+
+.notification-error {
+  border-left: 4px solid #b13030;
+  color: #b13030;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(400px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
 }
 
 @media (max-width: 1200px) {

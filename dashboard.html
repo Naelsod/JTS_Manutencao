@@ -3,40 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JTS Dashboard - Gerenciamento de Maquinário</title>
-    <link rel="stylesheet" href="CSS/dashboard.css">
-    <script src="JavaScript/dashboard.js"></script>
-    <link href="https://fonts.cdnfonts.com/css/konkhmer-sleokchher" rel="stylesheet">
-
+    <title>UTSO - Dashboard</title>
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="dashboard.js">
 </head>
 <body>
-    <header class="header">
-        <div class="header-left">
-            <div class="logo-container">
-                <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/logojts-PzwZ4KGoBwJ9Duqk3ZiHD3TdhFFB6y.png" alt="JTS Logo" class="logo">
-            </div>
-        </div>
-        <button class="btn-sair" id="btnSair">Sair</button>
-    </header>
+    <div class="container-fluid p-0">
 
+        <header class="header">
+            <div class="header-left">
+                <div class="logo-container">
+                <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/logojts-PzwZ4KGoBwJ9Duqk3ZiHD3TdhFFB6y.png" alt="UTSO Logo" class="logo">
+                </div>
+            </div>
+        <a href="Login.html">
+            <button class="btn-sair">Sair</button>
+        </a>
+        </header>
     <div class="main-container">
         <aside class="sidebar">
             <nav class="sidebar-section">
                 <h3 class="sidebar-title">Gerencia</h3>
                 <ul class="sidebar-menu">
-                    <li><a href="#" class="menu-item active" data-menu="Dashboard">Dashboard</a></li>
-                    <li><a href="#" class="menu-item" data-menu="Maquinário">Maquinário</a></li>
-                    <li><a href="#" class="menu-item" data-menu="Histórico de Manutenção">Histórico de Manutenção</a></li>
-                    <li><a href="#" class="menu-item" data-menu="Almoxarifado">Almoxarifado</a></li>
+                    <li><a href="dashboard.html" class="menu-item active">Dashboard</a></li>
+                    <li><a href="maquinas_geren.html" class="menu-item">Maquinário</a></li>
+                    <li><a href="maquinas_geren.html" class="menu-item">Histórico de Manutenção</a></li>
+                    <li><a href="estoque.html" class="menu-item">Almoxarifado</a></li>
                 </ul>
             </nav>
 
             <nav class="sidebar-section">
                 <h3 class="sidebar-title">Cadastro</h3>
                 <ul class="sidebar-menu">
-                    <li><a href="#" class="menu-item" data-menu="Cadastrar máquina">Cadastrar máquina</a></li>
-                    <li><a href="#" class="menu-item" data-menu="Cadastrar produto">Cadastrar produto</a></li>
-                    <li><a href="#" class="menu-item" data-menu="Cadastrar credencial">Cadastrar credencial</a></li>
+                    <li><a href="add_maquina.html" class="menu-item">Cadastrar máquina</a></li>
+                    <li><a href="adc.html" class="menu-item">Cadastrar produto</a></li>
+                    <li><a href="gerenciar.html" class="menu-item">Cadastrar credencial</a></li>
                 </ul>
             </nav>
         </aside>
@@ -67,9 +68,9 @@
             <section class="dashboard-grid">
                 <div class="card atividades-card">
                     <h2 class="card-title">Últimas atividades</h2>
-
+                    
                     <ul class="atividades-lista">
-                        <li class="atividade-item" data-machine="#0001" data-status="Manutenção">
+                        <li class="atividade-item">
                             <div class="atividade-info">
                                 <span class="maquina-nome">Maquina #0001</span>
                                 <span class="atividade-arrow">→</span>
@@ -78,7 +79,7 @@
                             <span class="atividade-tempo">1 min</span>
                         </li>
 
-                        <li class="atividade-item" data-machine="#0010" data-status="Disponível">
+                        <li class="atividade-item">
                             <div class="atividade-info">
                                 <span class="maquina-nome">Maquina #0010</span>
                                 <span class="atividade-arrow">→</span>
@@ -87,7 +88,7 @@
                             <span class="atividade-tempo">2h</span>
                         </li>
 
-                        <li class="atividade-item" data-machine="#0005" data-status="Indisponível">
+                        <li class="atividade-item">
                             <div class="atividade-info">
                                 <span class="maquina-nome">Maquina #0005</span>
                                 <span class="atividade-arrow">→</span>
@@ -96,7 +97,7 @@
                             <span class="atividade-tempo">5h</span>
                         </li>
 
-                        <li class="atividade-item" data-machine="#0018" data-status="Manutenção">
+                        <li class="atividade-item">
                             <div class="atividade-info">
                                 <span class="maquina-nome">Maquina #0018</span>
                                 <span class="atividade-arrow">→</span>
@@ -105,7 +106,7 @@
                             <span class="atividade-tempo">6h</span>
                         </li>
 
-                        <li class="atividade-item" data-machine="#0020" data-status="Excluída">
+                        <li class="atividade-item">
                             <div class="atividade-info">
                                 <span class="maquina-nome">Maquina #0020</span>
                                 <span class="atividade-arrow">→</span>
@@ -118,22 +119,30 @@
 
                 <div class="card grafico-card">
                     <h2 class="card-title">Distribuição de Máquinas</h2>
-
+                    
                     <div class="grafico-container">
-                        <svg viewBox="0 0 240 240" class="pie-chart" style="overflow: visible;">
-                            <!-- Green segment - Disponível (63.2%) -->
-                            <circle r="90" cx="120" cy="120" fill="transparent" stroke="#4CAF50" stroke-width="40" 
-                                    stroke-dasharray="356.45 564.49" stroke-dashoffset="0" transform="rotate(-90 120 120)"/>
+                        <svg viewBox="0 0 200 200" class="pie-chart">
+                            <circle r="90" cx="100" cy="100" fill="transparent" 
+                                    stroke="#4CAF50" 
+                                    stroke-width="40"
+                                    stroke-dasharray="356 564"
+                                    transform="rotate(-90 100 100)"/>
                             
-                            <!-- Blue segment - Manutenção (21.1%) -->
-                            <circle r="90" cx="120" cy="120" fill="transparent" stroke="#2196F3" stroke-width="40" 
-                                    stroke-dasharray="119.10 564.49" stroke-dashoffset="-356.45" transform="rotate(-90 120 120)"/>
+                            <circle r="90" cx="100" cy="100" fill="transparent" 
+                                    stroke="#2196F3" 
+                                    stroke-width="40"
+                                    stroke-dasharray="119 564"
+                                    stroke-dashoffset="-356"
+                                    transform="rotate(-90 100 100)"/>
                             
-                            <!-- Red segment - Indisponível (15.8%) -->
-                            <circle r="90" cx="120" cy="120" fill="transparent" stroke="#F44336" stroke-width="40" 
-                                    stroke-dasharray="89.19 564.49" stroke-dashoffset="-475.55" transform="rotate(-90 120 120)"/>
+                            <circle r="90" cx="100" cy="100" fill="transparent" 
+                                    stroke="#F44336" 
+                                    stroke-width="40"
+                                    stroke-dasharray="89 564"
+                                    stroke-dashoffset="-475"
+                                    transform="rotate(-90 100 100)"/>
                             
-                            <text x="120" y="125" text-anchor="middle" font-size="14" fill="#666">Máquinas</text>
+                            <text x="100" y="105" text-anchor="middle" font-size="14" fill="#666">Máquinas</text>
                         </svg>
 
                         <div class="grafico-legenda">
@@ -159,41 +168,49 @@
 
             <section class="card contatos-card">
                 <h2 class="card-title">Contatos Importantes</h2>
-
+                
                 <div class="contatos-grid">
-                    <div class="contato-item" data-name="CLIENTE 01" data-phone="(00) 00000-0000">
+                    <div class="contato-item">
                         <span class="contato-nome">CLIENTE 01 &gt;&gt;</span>
                         <span class="contato-telefone">(00) 00000-0000</span>
                     </div>
-                    <div class="contato-item" data-name="CLIENTE 04" data-phone="(00) 00000-0000">
+
+                    <div class="contato-item">
                         <span class="contato-nome">CLIENTE 04 &gt;&gt;</span>
                         <span class="contato-telefone">(00) 00000-0000</span>
                     </div>
-                    <div class="contato-item" data-name="CLIENTE 04" data-phone="(00) 00000-0000">
+
+                    <div class="contato-item">
                         <span class="contato-nome">CLIENTE 04 &gt;&gt;</span>
                         <span class="contato-telefone">(00) 00000-0000</span>
                     </div>
-                    <div class="contato-item" data-name="CLIENTE 02" data-phone="(00) 00000-0000">
+
+                    <div class="contato-item">
                         <span class="contato-nome">CLIENTE 02 &gt;&gt;</span>
                         <span class="contato-telefone">(00) 00000-0000</span>
                     </div>
-                    <div class="contato-item" data-name="CLIENTE 05" data-phone="(00) 00000-0000">
+
+                    <div class="contato-item">
                         <span class="contato-nome">CLIENTE 05 &gt;&gt;</span>
                         <span class="contato-telefone">(00) 00000-0000</span>
                     </div>
-                    <div class="contato-item" data-name="CLIENTE 05" data-phone="(00) 00000-0000">
+
+                    <div class="contato-item">
                         <span class="contato-nome">CLIENTE 05 &gt;&gt;</span>
                         <span class="contato-telefone">(00) 00000-0000</span>
                     </div>
-                    <div class="contato-item" data-name="CLIENTE 03" data-phone="(00) 00000-0000">
+
+                    <div class="contato-item">
                         <span class="contato-nome">CLIENTE 03 &gt;&gt;</span>
                         <span class="contato-telefone">(00) 00000-0000</span>
                     </div>
-                    <div class="contato-item" data-name="CLIENTE 06" data-phone="(00) 00000-0000">
+
+                    <div class="contato-item">
                         <span class="contato-nome">CLIENTE 06 &gt;&gt;</span>
                         <span class="contato-telefone">(00) 00000-0000</span>
                     </div>
-                    <div class="contato-item" data-name="CLIENTE 06" data-phone="(00) 00000-0000">
+
+                    <div class="contato-item">
                         <span class="contato-nome">CLIENTE 06 &gt;&gt;</span>
                         <span class="contato-telefone">(00) 00000-0000</span>
                     </div>
@@ -201,9 +218,5 @@
             </section>
         </main>
     </div>
-
-    <div id="notificationContainer"></div>
-
-    
 </body>
 </html>

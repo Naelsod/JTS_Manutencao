@@ -11,65 +11,76 @@ body {
 }
 
 .header {
+    background-color: #19212c;
+    padding: 16px 32px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #19212C; 
-    padding: 15px 45px;
-    border-bottom: 1px solid #dee2e6;
-}
-
-.header-left {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  
+  .header-left {
     display: flex;
     align-items: center;
-    gap: 40px;
-}
-
-.logo {
-    height: 50px;
-    margin-left: -30px;
-}
-
-.main-nav {
+    gap: 32px;
+  }
+  
+  .logo-container {
     display: flex;
-    gap: 20px;
-}
-
-.nav-link {
-    color: white;
+    align-items: center;
+  }
+  
+  .logo {
+    height: 50px;
+    width: auto;
+    object-fit: contain;
+  }
+  
+  /* Added navigation styles inside header */
+  .header-nav {
+    display: flex;
+    gap: 0;
+    align-items: center;
+  }
+  
+  .nav-item {
+    color: #ffffff;
     text-decoration: none;
-    font-size: 1rem;
-    padding: 8px 12px;
-    border-radius: 6px;
-    transition: color 0.2s ease, background-color 0.2s ease;
-}
-
-.nav-link:hover {
-    color: #000;
-}
-
-.nav-link.active {
-    text-decoration:underline #1F9EDE;
-    text-decoration-thickness: 2px; 
-    text-underline-offset: 4px;
-    font-weight: bold;
-    color: white;
-}
-
-.btn-sair {
-    background-color: #c53030;
-    color: white;
-    border: none;
-    padding: 8px 16px;
-    border-radius: 6px;
+    padding: 8px 20px;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    position: relative;
+    border-bottom: 3px solid transparent;
+  }
+  
+  .nav-item:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+  }
+  
+  .nav-item.active {
+    border-bottom-color: #ffffff;
+  }
+  
+  .btn-sair {
+    background-color: transparent;
+    color: #ffffff;
+    border: 1px solid #ffffff;
+    padding: 8px 24px;
+    font-size: 14px;
+    font-weight: 500;
     cursor: pointer;
-    font-weight: bold;
-    transition: background-color 0.2s ease;
-}
-
-.btn-sair:hover {
-    background-color: #c53030;
-}
+    border-radius: 4px;
+    transition: all 0.3s ease;
+  }
+  
+  .btn-sair:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    transform: translateY(-1px);
+  }
+  
 
 .main-container {
     display: flex;

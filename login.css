@@ -1,0 +1,90 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", Arial, sans-serif;
+}
+
+body {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: url('img/fundo_login.png') no-repeat center center;
+    background-size: cover;
+    backdrop-filter: blur(3px);
+}
+
+.login-container {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 40px 35px;
+    border-radius: 20px;
+    width: 340px;
+    text-align: center;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.37);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    transition: all 0.3s ease;
+}
+
+.login-container:hover {
+    transform: scale(1.02);
+}
+
+.login-container img {
+    width: 160px;
+    margin-bottom: 25px;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+}
+
+.login-container input {
+    width: 100%;
+    padding: 12px 15px;
+    margin: 10px 0;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 25px;
+    background: rgba(255, 255, 255, 0.15);
+    color: #fff;
+    font-size: 14px;
+    outline: none;
+    transition: 0.3s;
+}
+
+.login-container input::placeholder {
+    color: #e0e0e0;
+}
+
+.login-container input:focus {
+    background: rgba(255, 255, 255, 0.25);
+    border-color: #6ca8ff;
+}
+
+.login-container a {
+    width: 100%;
+    padding: 12px;
+    margin-top: 20px;
+    background: linear-gradient(135deg, #007bff, #00c6ff);
+    border: none;
+    border-radius: 25px;
+    color: white;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
+}
+
+.login-container a:hover {
+    background: linear-gradient(135deg, #0062cc, #0090ff);
+    box-shadow: 0 6px 20px rgba(0, 123, 255, 0.4);
+}
+
+.login-container,
+.login-container input,
+.login-container a {
+    transition: all 0.3s ease-in-out;
+}
+
+
+

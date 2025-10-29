@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Estoque - JTS</title>
-    <link rel="stylesheet" href="CSS/estoque.css">
+    <link rel="stylesheet" href="css/estoque.css">
     <link rel="stylesheet" href="estoque.js">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
@@ -12,14 +12,16 @@
 
     <header class="header">
         <div class="header-left">
-            <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/logojts-PzwZ4KGoBwJ9Duqk3ZiHD3TdhFFB6y.png" alt="JTS Logo" class="logo">
-            <nav class="main-nav">
-                <a class="nav-link active" href="#">Almoxarifado</a>
-                <a class="nav-link" href="#">Manutenção</a>
-                <a class="nav-link" href="#">Gerência</a>
+            <div class="logo-container">
+                <a href="dashboard.html"><img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/logojts-PzwZ4KGoBwJ9Duqk3ZiHD3TdhFFB6y.png" alt="JTS Logo" class="logo"></a>
+            </div>
+            <nav class="header-nav">
+                <a href="estoque.html" class="nav-item active">Almoxarifado</a>
+                <a href="maquinas_geren.html" class="nav-item">Manutenção</a>
+                <a href="gerenciar.html" class="nav-item">Gerência</a>
             </nav>
         </div>
-        <button class="btn-sair">Sair</button>
+        <a href="login.html"><button class="btn-sair" id="btnSair">Sair</button></a>
     </header>
 
     <main class="main-container">

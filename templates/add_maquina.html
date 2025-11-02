@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="pt_br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/add_maquina.css') }}">
+    <title>Adicionar Máquina</title>
+</head>
+<body class="bg-light-gray">
+    <div class="container-fluid p-0">
+        <header class="header">
+            <div class="header-left">
+                <div class="logo-container">
+                    <a href="{{ url_for('pagina_dashboard') }}"><img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/logojts-PzwZ4KGoBwJ9Duqk3ZiHD3TdhFFB6y.png" alt="JTS Logo" class="logo"></a>
+                </div>
+                <nav class="header-nav">
+                    <a href="{{ url_for('pagina_estoque') }}" class="nav-item ">Almoxarifado</a>
+                    <a href="{{ url_for('pagina_maquinas') }}" class="nav-item">Manutenção</a>
+                    <a href="{{ url_for('pagina_gerenciar') }}" class="nav-item active">Gerência</a>
+                </nav>
+            </div>
+            <a href="{{ url_for('logout') }}"><button class="btn-sair" id="btnSair">Sair</button></a>
+        </header>
+    </div>
+
+    <div class="container my-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-7 col-md-9">
+                <div class="card p-4 form-card-container">
+                    <div>
+                        <h2>Adicionar Máquina</h2>
+                    </div>
+
+                    {% with messages = get_flashed_messages(with_categories=true) %}
+                      {% if messages %}
+                        {% for category, message in messages %}
+                          <div class="alert alert-{{ 'danger' if category == 'error' else category }} mt-3">
+                            {{ message }}
+                          </div>
+                        {% endfor %}
+                      {% endif %}
+                    {% endwith %}
+                    
+                    <form action="{{ url_for('rota_processar_adicionar_maquina') }}" method="POST" enctype="multipart/form-data">
+
+                        <div class="mb-4">
+                            <label for="selectTipo" class="form-label custom-label">Selecionar Tipo...</label>
+                            <select class="form-select custom-input" id="selectTipo" name="tipo_maquina" required>
+                                <option value="">Tipo...</option>
+                                <option value="Retroescavadeira">Retroescavadeira</option>
+                                <option value="Pá Carregadeira">Pá Carregadeira</option>
+                                <option value="Escavadeira">Escavadeira</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="codigoMaquina" class="form-label custom-label">Código da Máquina</label>
+                            <input type="text" class="form-control custom-input code-input" id="codigoMaquina" name="codigo_maquina" placeholder="#" required>
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="imagemMaquina" class="form-label custom-label">Imagem da Máquina</label>
+                            <div class="custom-file-input-wrapper">
+                                <input type="file" class="form-control" id="imagemMaquina" name="imagem_maquina" hidden>
+                                <label class="form-control file-input-label custom-input" for="imagemMaquina">
+                                    Envie a imagem da máquina...
+                                </label> 
+                            </div>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label for="especificacoes" class="form-label custom-label">Especificações</label>
+                            <textarea class="form-control custom-input" id="especificacoes" name="especificacoes" rows="8"></textarea>
+                        </div>
+
+                        <div class="d-flex justify-content-end align-items-center mt-5">
+                            <a href="{{ url_for('pagina_maquinas') }}" class="btn btn-link text-decoration-none text-dark me-3 cancel-btn">
+                                Cancelar
+                            </a>
+                            <button type="submit" class="btn btn-dark add-btn">
+                                Adicionar Máquina
+                            </button>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    <script>
+        // Seu script de nome de arquivo (está perfeito, não mudei)
+        document.getElementById('imagemMaquina').addEventListener('change', function(e) {
+            var fileName = e.target.files[0] ? e.target.files[0].name : 'Envie a imagem da máquina...';
+            document.querySelector('.file-input-label').textContent = fileName;
+        });
+    </script>
+</body>
+</html>

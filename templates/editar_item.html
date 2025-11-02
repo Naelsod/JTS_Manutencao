@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Item - JTS</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/adc_item.css') }}">
+</head>
+<body>
+
+    <header class="header">
+        <div class="header-left">
+            <div class="logo-container">
+                <a href="{{ url_for('pagina_dashboard') }}"><img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/logojts-PzwZ4KGoBwJ9Duqk3ZiHD3TdhFFB6y.png" alt="JTS Logo" class="logo"></a>
+            </div>
+            <nav class="header-nav">
+                <a href="{{ url_for('pagina_estoque') }}" class="nav-item active">Almoxarifado</a>
+                <a href="{{ url_for('pagina_maquinas') }}" class="nav-item">Manutenção</a>
+                <a href="{{ url_for('pagina_gerenciar') }}" class="nav-item">Gerência</a>
+            </nav>
+        </div>
+        <a href="{{ url_for('logout') }}"><button class="btn-sair" id="btnSair">Sair</button></a>
+    </header>
+
+    <main class="form-container">
+        <h1 class="form-title">Editar Item do Estoque</h1>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            {% for category, message in messages %}
+              <div class="alert-{{ category }}">{{ message }}</div>
+            {% endfor %}
+          {% endif %}
+        {% endwith %}
+
+        <form action="{{ url_for('rota_processar_edicao', item_id=item._id) }}" method="POST" class="add-item-form">
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="codigo">Código do Item:</label>
+                    <input type="text" id="codigo" name="codigo_item" value="{{ item.codigo_item }}" required>
+                </div>
+                
+                <div class="form-group"> 
+                    <label for="nome">Nome do Item:</label>
+                    <input type="text" id="nome" name="nome_item" value="{{ item.nome_item }}" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="quantidade">Quantidade:</label>
+                    <input type="number" id="quantidade" min="0" name="quantidade" value="{{ item.quantidade }}" required>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group full-width">
+                    <label for="endereco">Localização:</label>
+                    <input type="text" id="endereco" name="localizacao" value="{{ item.localizacao or '' }}">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group full-width">
+                    <label for="tipo">Tipo</label>
+                    <select id="tipo" name="tipo">
+                        <option value="peca" {{ 'selected' if item.tipo == 'peca' }}>Peça</option>
+                        <option value="filtro" {{ 'selected' if item.tipo == 'filtro' }}>Filtro</option>
+                        <option value="cabo" {{ 'selected' if item.tipo == 'cabo' }}>Cabo</option>
+                        <option value="oleo" {{ 'selected' if item.tipo == 'oleo' }}>Óleo</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group full-width">
+                    <label for="marca">Marca</label>
+                    <input type="text" id="marca" name="marca" value="{{ item.marca or '' }}">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group full-width">
+                    <label for="maquina">Máquina Compatível</label>
+                    <input type="text" id="maquina" name="maquina_compativel" value="{{ item.maquina_compativel or '' }}">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group full-width">
+                    <label for="descricao">Descrição</label>
+                    <textarea id="descricao" rows="4" name="descricao">{{ item.descricao or '' }}</textarea>
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <a href="{{ url_for('pagina_estoque') }}" class="btn-cancel">Cancelar</a>
+                
+                <button type="submit" class="btn-submit">Salvar Alterações</button>
+            </div>
+        </form>
+    </main>
+
+</body>
+</html>

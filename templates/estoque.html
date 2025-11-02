@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estoque - JTS</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/estoque.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+
+    <header class="header">
+        <div class="header-left">
+            <div class="logo-container">
+                <a href="{{ url_for('pagina_dashboard') }}"><img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/logojts-PzwZ4KGoBwJ9Duqk3ZiHD3TdhFFB6y.png" alt="JTS Logo" class="logo"></a>
+            </div>
+            <nav class="header-nav">
+                <a href="{{ url_for('pagina_estoque') }}" class="nav-item active">Almoxarifado</a>
+                <a href="{{ url_for('pagina_maquinas') }}" class="nav-item">Manutenção</a>
+                <a href="{{ url_for('pagina_gerenciar') }}" class="nav-item">Gerência</a>
+            </nav>
+        </div>
+        <a href="{{ url_for('logout') }}"><button class="btn-sair" id="btnSair">Sair</button></a>
+    </header>
+    <form action="{{ url_for('pagina_estoque') }}" method="GET">
+    <main class="main-container">
+
+        <aside class="sidebar">
+            <h2>Filtros</h2>
+            <div class="filter-options">
+                <label>
+                    <input type="checkbox" name="tipo" value="peca" {{ 'checked' if 'peca' in tipos_atuais }}> Peças
+                </label>
+                <label>
+                    <input type="checkbox" name="tipo" value="filtro" {{ 'checked' if 'filtro' in tipos_atuais }}> Filtros
+                </label>
+                <label>
+                    <input type="checkbox" name="tipo" value="cabo" {{ 'checked' if 'cabo' in tipos_atuais }}> Cabos
+                </label>
+                <label>
+                    <input type="checkbox" name="tipo" value="oleo" {{ 'checked' if 'oleo' in tipos_atuais }}> Óleo
+                </label>
+            </div>
+        </aside>
+
+        <section class="stock-content">
+            <div class="stock-header">
+                <h1>Estoque</h1>
+                <div class="search-bar">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        
+                        <input type="text" placeholder="Pesquisa" name="busca" value="{{ busca_atual or '' }}">
+                        
+                        <button class="btn-buscar" type="submit">Buscar</button>
+
+                    <a href="{{ url_for('pagina_adicionar_item_estoque') }}" class="btn-adicionar"><i class="fa-solid fa-plus"></i> Adicionar Item</a>
+                </div>
+            </div>
+
+            <div class="stock-table-header">
+                <span>CÓDIGO</span>
+                <span>DESCRIÇÃO</span>
+                <span>TIPO</span>
+                <span>QUANTIDADE</span>
+            </div>
+
+            <div class="stock-list">
+
+                {% for item in itens %}
+                    <div class="stock-item"> 
+
+                        <span class="item-cod">{{ item.codigo_item }}</span>
+
+                        <span class="item-desc">
+                            <strong>{{ item.nome_item }}</strong>
+                            {% if item.marca %}<br><small>Marca: {{ item.marca }}</small>{% endif %}
+                        </span>
+
+                        <span class="item-tipo">
+                            {% if item.tipo == 'oleo' %}
+                                <i class="fa-solid fa-oil-can" title="Óleo"></i>
+                            {% elif item.tipo == 'peca' %}
+                                <i class="fa-solid fa-gear" title="Peça"></i>
+                            {% elif item.tipo == 'filtro' %}
+                                <i class="fa-solid fa-filter" title="Filtro"></i>
+                            {% elif item.tipo == 'cabo' %}
+                                <i class="fa-solid fa-plug" title="Cabo"></i>
+                            {% else %}
+                                <i class="fa-solid fa-box" title="{{ item.tipo or 'N/A' }}"></i>
+                            {% endif %}
+                        </span>
+
+                        <span class = "item-quant">
+                                {{ item.quantidade }}
+                        </span>
+                                <span class="expand-btn" style="display: flex; gap: 15px;">
+                                    <a href="{{ url_for('pagina_editar_item_estoque', item_id=item._id) }}"
+                                    style="color: #007BFF; cursor: pointer;"
+                                    title="Editar Item">
+                                        <i class="fa-solid fa-pen-to-square"></i>
+                                    </a>
+
+                                    <a href="{{ url_for('rota_deletar_item_estoque', item_id=item._id) }}" 
+                                    onclick="return confirm('Tem certeza que quer deletar o item \'{{ item.nome_item }}\'?');"
+                                    style="color: #CC0000; cursor: pointer;"
+                                    title="Deletar Item">
+                                        <i class="fa-solid fa-trash"></i>
+                                    </a>
+                                </span>
+                    </div>
+
+                {% else %}
+                    <p style="text-align: center; padding: 20px;">
+                        Nenhum item encontrado no estoque. 
+                        <a href="{{ url_for('pagina_adicionar_item_estoque') }}">Clique aqui para adicionar o primeiro.</a>
+                    </p>
+                {% endfor %}
+            </div>
+        </section>
+    </main>
+    </form>
+
+</body>
+</html>

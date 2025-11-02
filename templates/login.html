@@ -4,17 +4,21 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Login</title>
-  <link rel="stylesheet" href="login.css">
+  <link rel="stylesheet" href="../static/css/login.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
 </head>
 <body>
   <div class="login-container">
-    <img src="img/logo.png" alt="Logo JTS">
-    <form>
-      <input type="text" placeholder="Nome de Usuário" required>
-      <input type="password" placeholder="Senha" required>
-      <a href="dashboard.html">Entrar</a>
-    </form>
+    <img src="../static/img/logo.png" alt="Logo JTS">
+    <form action="/login_processar" method="POST">
+    <div>
+        <input type="email" name="email"  placeholder="Nome de Usuário" required>
+    </div>
+    <div>
+        <input type="password" name="password" placeholder="Senha" required>
+    </div>
+    <button type="submit">Entrar</button>
+</form>
   </div>
 </body>
 </html>

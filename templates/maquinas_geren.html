@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JTS - Gerenciamento de Máquinas</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/maquinas_geren.css') }}">
+    <link href="https://fonts.cdnfonts.com/css/konkhmer-sleokchher" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    <header class="header">
+        <div class="header-left">
+            <div class="logo-container">
+                <a href="{{ url_for('pagina_dashboard') }}"><img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/logojts-PzwZ4KGoBwJ9Duqk3ZiHD3TdhFFB6y.png" alt="JTS Logo" class="logo"></a>
+            </div>
+            <nav class="header-nav">
+                <a href="{{ url_for('pagina_estoque') }}" class="nav-item ">Almoxarifado</a>
+                <a href="{{ url_for('pagina_maquinas') }}" class="nav-item active">Manutenção</a>
+                <a href="{{ url_for('pagina_gerenciar') }}" class="nav-item">Gerência</a>
+            </nav>
+        </div>
+        <a href="{{ url_for('logout') }}"><button class="btn-sair" id="btnSair">Sair</button></a>
+    </header>
+
+    <div class="main-container">
+        <main class="content">
+            <h1 class="page-title">Gerenciamento de Máquinas</h1>
+
+            <form class="controls-section" action="{{ url_for('pagina_maquinas') }}" method="GET">
+                
+                <div class="search-container">
+                    <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/ZoomIn-R6ER0JSuwkyIP46pOp1YNgFE0zssqd.png" alt="Search" class="search-icon">
+                    <input type="text" id="searchInput" class="search-input" placeholder="Código da Máquina..." name="busca_codigo" value="{{ busca_codigo_atual or '' }}">
+                </div>
+
+                <div class="filters-row">
+                    <div class="filters-container">
+                        <span class="filters-label">Filtros</span>
+                        <select id="tipoMaquina" class="filter-select" name="busca_tipo">
+                            <option value="">Todos os Tipos</option>
+                            <option value="Retroescavadeira" {{ 'selected' if busca_tipo_atual == 'Retroescavadeira' }}>Retroescavadeira</option>
+                            <option value="Pá Carregadeira" {{ 'selected' if busca_tipo_atual == 'Pá Carregadeira' }}>Pá Carregadeira</option>
+                            <option value="Escavadeira" {{ 'selected' if busca_tipo_atual == 'Escavadeira' }}>Escavadeira</option>
+                        </select>
+                    </div>
+                    
+                    <button type="submit" class="btn-buscar" style="background: #333; color: white; border: none; padding: 5px 10px; cursor: pointer; border-radius: 5px; margin-left: 10px;">Buscar</button>
+                    
+                    <a href="{{ url_for('pagina_adicionar_maquina') }}"><button type="button" class="btn-adicionar" id="btnAdicionar">+ Adicionar</button></a>
+                </div>
+            </form>
+
+            <div class="machines-grid" id="machinesGrid">
+                
+                {% for maquina in maquinas %}
+                
+                    {% if maquina.status == 'Disponível' %}
+                        {% set status_class = 'status-disponivel' %}
+                    
+                    {% elif maquina.status == 'Em Manutenção' %}
+                        {% set status_class = 'status-manutencao' %}
+
+                    {% elif maquina.status == 'Indisponível' %}
+                        {% set status_class = 'status-indisponivel' %}
+
+                    {% else %}
+                        {% set status_class = 'status-desconhecido' %}
+                    {% endif %}
+                
+                    <div class="machine-card" data-code="{{ maquina.codigo }}">
+                        <div class="machine-header">
+                            <span class="machine-code">#{{ maquina.codigo }}</span>
+                        </div>
+                        <div class="machine-image-container">
+                            <img src="{{ maquina.imagem_url or url_for('static', filename='img/seu-placeholder.png') }}" alt="Máquina #{{ maquina.codigo }}" class="machine-image">
+                        </div>
+                        <div class="machine-footer">
+                            <span class="machine-status {{ status_class }}">{{ maquina.status }}</span>
+                            
+                            <div class="machine-actions">
+                                <a href="{{ url_for('pagina_manutencao', maquina_id=maquina._id) }}" class="action-btn" title="Histórico de Manutenção">
+                                    <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Vector-2aDgiKAasfhPCcbZAV7rtclr1dlzRF.png" alt="Manutenção" class="action-icon">
+                                </a>
+                                
+                                <a href="{{ url_for('pagina_manutencao', maquina_id=maquina._id) }}" class="action-btn" title="Detalhes/Editar">
+                                    <i class="fa-solid fa-pen-to-square" style="color: #333;"></i>
+                                </a>
+                                
+                                <a href="{{ url_for('rota_deletar_maquina', maquina_id=maquina._id) }}" 
+                                class="action-btn" title="Deletar"
+                                onclick="return confirm('Tem certeza que deseja deletar a máquina \'{{ maquina.codigo }}\'?');">
+                                    <i class="fa-solid fa-trash" style="color: #CC0000;"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                {% else %}
+                    <p style="text-align: center; grid-column: 1 / -1; padding: 40px;">
+                        Nenhuma máquina encontrada com esses filtros. 
+                        <a href="{{ url_for('pagina_adicionar_maquina') }}">Clique aqui para cadastrar uma.</a>
+                    </p>
+                {% endfor %}
+                
+            </div>
+        </main>
+    </div>
+
+    <div id="notificationContainer"></div>
+</body>
+</html>

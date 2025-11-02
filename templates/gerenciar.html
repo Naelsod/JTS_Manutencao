@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciar Contas</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+    <style>
+      body {
+        background-color: #c7cbcd;
+        font-family: Arial, sans-serif;
+      }
+      .container-form {
+        max-width: 500px;
+        margin: 50px auto 40px auto;
+        background-color: #c7cbcd;
+        border-radius: 10px;
+      }
+      .form-control, .form-select {
+        border-radius: 20px;
+        border: 1px solid #000;
+      }
+      .btn-credenciar {
+        background-color: #a59b9b;
+        border: none;
+        border-radius: 20px;
+        color: #000;
+        width: 200px;
+      }
+      .btn-credenciar:hover {
+        background-color: #908787;
+      }
+      .card-contas {
+        background-color: #fff;
+        border-radius: 20px;
+        border: 2px solid #000; 
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        padding: 20px;
+        max-width: 800px;
+        margin: 0 auto;
+      }
+      .conta-item {
+        background-color: #9b9595;
+        border-radius: 20px;
+        padding: 8px 15px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 10px;
+        color: #000;
+        font-size: 14px;
+      }
+      .conta-item span {
+        font-weight: 600;
+        margin-right: 10px;
+      }
+      .conta-num {
+        background-color: #3a3a3a;
+        color: #fff;
+        border-radius: 50%;
+        width: 30px;
+        height: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 10px;
+      }
+      .delete-icon:hover {
+        color: darkred !important;
+        transform: scale(1.1);
+      }
+      .header {
+  background-color: #19212c;
+  padding: 16px 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  height: 50px;
+  width: auto;
+  object-fit: contain;
+}
+
+/* Added navigation styles inside header */
+.header-nav {
+  display: flex;
+  gap: 0;
+  align-items: center;
+}
+
+.nav-item {
+  color: #ffffff;
+  text-decoration: none;
+  padding: 8px 20px;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  position: relative;
+  border-bottom: 3px solid transparent;
+}
+
+.nav-item:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.nav-item.active {
+  border-bottom-color: #ffffff;
+}
+
+.btn-sair {
+  background-color: transparent;
+  color: #ffffff;
+  border: 1px solid #ffffff;
+  padding: 8px 24px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+
+.btn-sair:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  transform: translateY(-1px);
+}
+
+
+
+    </style>
+  </head>
+  <body>
+
+
+    <header class="header">
+        <div class="header-left">
+            <div class="logo-container">
+                <a href="{{ url_for('pagina_dashboard') }}"><img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/logojts-PzwZ4KGoBwJ9Duqk3ZiHD3TdhFFB6y.png" alt="JTS Logo" class="logo"></a>
+            </div>
+            <nav class="header-nav">
+                <a href="{{ url_for('pagina_estoque') }}" class="nav-item ">Almoxarifado</a>
+                <a href="{{ url_for('pagina_maquinas') }}" class="nav-item">Manutenção</a>
+                <a href="{{ url_for('pagina_gerenciar') }}" class="nav-item active">Gerência</a>
+            </nav>
+        </div>
+        <a href="{{ url_for('logout') }}"><button class="btn-sair" id="btnSair">Sair</button></a>
+    </header>
+    
+      {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+          <div class="alert-{{ category }}">{{ message }}</div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %} 
+
+
+
+    <div class="container-form">
+      <h5 class="fw-bold mb-4 text-center">Credenciar Nova Conta</h5>
+      <form action="{{ url_for('processar_gerenciamento') }}" method="POST">
+        <div class="mb-3">
+          <label class="form-label fw-bold">Nome:</label>
+          <input type="text" name="nome" class="form-control" placeholder="Digite o nome de acesso">
+        </div>
+        <div class="mb-3">
+          <label class="form-label fw-bold">email:</label>
+          <input type="email" name="email" class="form-control" placeholder="Digite o email de acesso">
+        </div>
+        <div class="mb-3">
+          <label class="form-label fw-bold">Senha de Acesso</label>
+          <input type="password" name="password" class="form-control" placeholder="Digite a senha de acesso">
+        </div>
+        <div class="mb-4">
+          <label class="form-label fw-bold">Tipo de Permissão</label>
+        <select name="permissao">
+            <option value="Colaborador">Colaborador</option>
+            <option value="Admin">Admin</option>
+        </select>
+        </div>
+        <div class="text-center">
+          <button type="submit" class="btn btn-credenciar">Credenciar</button>
+        </div>
+      </form>
+    </div>
+
+    
+    <div class="card-contas">
+      <h6 class="fw-bold mb-3">CONTAS CREDENCIADAS</h6>
+      
+      {% for usuario in usuarios %}
+        <div class="conta-item">
+          <div class="d-flex align-items-center">
+            <div class="conta-num">{{ "%02d" % loop.index }}</div>
+            
+            <div><small><strong>{{ usuario.nome }}</strong> ({{ usuario.permissao }})</small></div>
+          </div>
+          <div class="d-flex align-items-center">
+            <small class="me-3">Última vez online em: {{ usuario.ultimo_login or '—' }}</small>
+            
+            <a href="{{ url_for('rota_deletar_usuario', user_id=usuario._id) }}" 
+              onclick="return confirm('Tem certeza que deseja deletar o usuário \'{{ usuario.nome }}\'? Esta ação não pode ser desfeita.');">
+
+                <i class="bi bi-trash3-fill delete-icon" style="color: red; cursor:pointer;"></i>
+            </a>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+
+    
+  </body>
+</html>

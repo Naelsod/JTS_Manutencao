@@ -4,8 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>UTSO - Dashboard</title>
-    <link rel="stylesheet" href="css/dashboard.css">
-    <link rel="stylesheet" href="dashboard.js">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+        <script type="application/json" id="chart-data">
+        {{ {
+            'disponivel': stats.disponivel,
+            'manutencao': stats.manutencao,
+            'indisponivel': stats.indisponivel,
+            'total': stats.total,
+            'percentages': percentages
+        } | tojson }}
+        </script>
 </head>
 <body>
     <div class="container-fluid p-0">
@@ -16,28 +24,34 @@
                 <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/logojts-PzwZ4KGoBwJ9Duqk3ZiHD3TdhFFB6y.png" alt="UTSO Logo" class="logo">
                 </div>
             </div>
-        <a href="Login.html">
+         <a href="Login.html">
             <button class="btn-sair">Sair</button>
         </a>
         </header>
     <div class="main-container">
-        <aside class="sidebar">
+<aside class="sidebar">
             <nav class="sidebar-section">
                 <h3 class="sidebar-title">Gerencia</h3>
                 <ul class="sidebar-menu">
-                    <li><a href="dashboard.html" class="menu-item active">Dashboard</a></li>
-                    <li><a href="maquinas_geren.html" class="menu-item">Maquinário</a></li>
-                    <li><a href="maquinas_geren.html" class="menu-item">Histórico de Manutenção</a></li>
-                    <li><a href="estoque.html" class="menu-item">Almoxarifado</a></li>
+                    <li><a href="{{ url_for('pagina_dashboard') }}" class="menu-item active">Dashboard</a></li>
+                    <li><a href="{{ url_for('pagina_maquinas') }}" class="menu-item">Maquinário</a></li>
+                    <li><a href="{{ url_for('pagina_maquinas') }}" class="menu-item">Histórico de Manutenção</a></li>
+                    <li><a href="{{ url_for('pagina_estoque') }}" class="menu-item">Almoxarifado</a></li>
                 </ul>
             </nav>
 
             <nav class="sidebar-section">
                 <h3 class="sidebar-title">Cadastro</h3>
                 <ul class="sidebar-menu">
-                    <li><a href="add_maquina.html" class="menu-item">Cadastrar máquina</a></li>
-                    <li><a href="adc.html" class="menu-item">Cadastrar produto</a></li>
-                    <li><a href="gerenciar.html" class="menu-item">Cadastrar credencial</a></li>
+                    <li><a href="{{ url_for('pagina_adicionar_maquina') }}" class="menu-item">Cadastrar máquina</a></li>
+                    <li><a href="{{ url_for('pagina_adicionar_item_estoque') }}" class="menu-item">Cadastrar produto</a></li>
+                    <li>
+                        {% if session.permissao == 'Admin' %}
+                        <a href="{{ url_for('pagina_gerenciar') }}" class="menu-item">
+                            Gerenciar Credenciais (ADMIN)
+                        </a>
+                        {% endif %}
+                    </li>
                 </ul>
             </nav>
         </aside>
@@ -45,22 +59,19 @@
         <main class="content">
             <section class="stats-container">
                 <div class="stats-card">
-                    <div class="stats-number disponivel">12</div>
+                    <div class="stats-number disponivel">{{ stats.disponivel }}</div>
                     <div class="stats-label">Disponível</div>
                 </div>
-
                 <div class="stats-card">
-                    <div class="stats-number manutencao">4</div>
+                    <div class="stats-number manutencao">{{ stats.manutencao }}</div>
                     <div class="stats-label">Em Manutenção</div>
                 </div>
-
                 <div class="stats-card">
-                    <div class="stats-number indisponivel">3</div>
+                    <div class="stats-number indisponivel">{{ stats.indisponivel }}</div>
                     <div class="stats-label">Indisponível</div>
                 </div>
-
                 <div class="stats-card">
-                    <div class="stats-number total">19</div>
+                    <div class="stats-number total">{{ stats.total }}</div>
                     <div class="stats-label">Total</div>
                 </div>
             </section>
@@ -70,51 +81,37 @@
                     <h2 class="card-title">Últimas atividades</h2>
                     
                     <ul class="atividades-lista">
-                        <li class="atividade-item">
-                            <div class="atividade-info">
-                                <span class="maquina-nome">Maquina #0001</span>
-                                <span class="atividade-arrow">→</span>
-                                <span class="atividade-status manutencao">Manutenção</span>
-                            </div>
-                            <span class="atividade-tempo">1 min</span>
-                        </li>
+                        
+                        {% for log in ultimos_logs %}
+                        
+                            {% set log_class = '' %}
+                            {% if 'Manutenção' in log.acao or 'Registrou' in log.acao %}
+                                {% set log_class = 'manutencao' %}
+                            {% elif 'Disponível' in log.acao %}
+                                {% set log_class = 'disponivel' %}
+                            {% elif 'Indisponível' in log.acao %}
+                                {% set log_class = 'indisponivel' %}
+                            {% elif 'deletou' in log.acao %}
+                                {% set log_class = 'excluida' %}
+                            {% endif %}
 
-                        <li class="atividade-item">
-                            <div class="atividade-info">
-                                <span class="maquina-nome">Maquina #0010</span>
-                                <span class="atividade-arrow">→</span>
-                                <span class="atividade-status disponivel">Disponível</span>
-                            </div>
-                            <span class="atividade-tempo">2h</span>
-                        </li>
-
-                        <li class="atividade-item">
-                            <div class="atividade-info">
-                                <span class="maquina-nome">Maquina #0005</span>
-                                <span class="atividade-arrow">→</span>
-                                <span class="atividade-status indisponivel">Indisponível</span>
-                            </div>
-                            <span class="atividade-tempo">5h</span>
-                        </li>
-
-                        <li class="atividade-item">
-                            <div class="atividade-info">
-                                <span class="maquina-nome">Maquina #0018</span>
-                                <span class="atividade-arrow">→</span>
-                                <span class="atividade-status manutencao">Manutenção</span>
-                            </div>
-                            <span class="atividade-tempo">6h</span>
-                        </li>
-
-                        <li class="atividade-item">
-                            <div class="atividade-info">
-                                <span class="maquina-nome">Maquina #0020</span>
-                                <span class="atividade-arrow">→</span>
-                                <span class="atividade-status excluida">Excluída</span>
-                            </div>
-                            <span class="atividade-tempo">10h</span>
-                        </li>
-                    </ul>
+                            <li class="atividade-item">
+                                <div class="atividade-info">
+                                    <span class="maquina-nome">{{ log.usuario }}</span> 
+                                    <span class="atividade-arrow">→</span>
+                                    <span class="atividade-status {{ log_class }}">{{ log.acao }}</span>
+                                </div>
+                                <span class="atividade-tempo">{{ log.timestamp.strftime('%d/%m %H:%M') }}</span>
+                            </li>
+                        
+                        {% else %}
+                            <li class="atividade-item">
+                                <div class="atividade-info">
+                                    <span class="atividade-status">Nenhuma atividade registrada.</span>
+                                </div>
+                            </li>
+                        {% endfor %}
+                        </ul>
                 </div>
 
                 <div class="card grafico-card">
@@ -149,20 +146,19 @@
                             <div class="legenda-item">
                                 <span class="legenda-cor disponivel"></span>
                                 <span class="legenda-texto">Disponíveis</span>
-                                <span class="legenda-porcentagem">63.2%</span>
+                                <span class="legenda-porcentagem">{{ percentages.disponivel }}%</span>
                             </div>
                             <div class="legenda-item">
                                 <span class="legenda-cor manutencao"></span>
                                 <span class="legenda-texto">Em Manutenção</span>
-                                <span class="legenda-porcentagem">21.1%</span>
+                                <span class="legenda-porcentagem">{{ percentages.manutencao }}%</span>
                             </div>
                             <div class="legenda-item">
                                 <span class="legenda-cor indisponivel"></span>
                                 <span class="legenda-texto">Indisponíveis</span>
-                                <span class="legenda-porcentagem">15.8%</span>
+                                <span class="legenda-porcentagem">{{ percentages.indisponivel }}%</span>
                             </div>
                         </div>
-                    </div>
                 </div>
             </section>
 
@@ -216,6 +212,7 @@
                     </div>
                 </div>
             </section>
+            <script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
         </main>
     </div>
 </body>

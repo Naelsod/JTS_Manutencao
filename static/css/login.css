@@ -10,7 +10,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    background: url('img/fundo_login.png') no-repeat center center;
+    background: url('../img/fundo_login.png') no-repeat center center;
     background-size: cover;
     backdrop-filter: blur(3px);
 }
@@ -60,7 +60,7 @@ body {
     border-color: #6ca8ff;
 }
 
-.login-container a {
+.login-container button {
     width: 100%;
     padding: 12px;
     margin-top: 20px;
@@ -75,14 +75,14 @@ body {
     box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
 }
 
-.login-container a:hover {
+.login-container button:hover {
     background: linear-gradient(135deg, #0062cc, #0090ff);
     box-shadow: 0 6px 20px rgba(0, 123, 255, 0.4);
 }
 
 .login-container,
 .login-container input,
-.login-container a {
+.login-container button {
     transition: all 0.3s ease-in-out;
 }
 
